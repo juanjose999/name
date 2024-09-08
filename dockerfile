@@ -1,23 +1,5 @@
-# Etapa 1: Construcción
 FROM amazoncorretto:21-alpine-jdk
 
-# Establece el directorio de trabajo
-WORKDIR /app
+COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
 
-# Copia los archivos de tu proyecto al directorio de trabajo
-COPY . .
-
-# Construye la aplicación utilizando Maven (sin ejecutar los tests para mayor rapidez)
-RUN mvn clean install -DskipTests
-
-# Etapa 2: Ejecución
-FROM amazoncorretto:21-alpine-jdk
-
-# Establece el directorio de trabajo para la ejecución
-WORKDIR /app
-
-# Copia el archivo JAR generado en la fase de construcción al contenedor
-COPY --from=build demo/target/demo-0.0.1-SNAPSHOT.jar app.jar
-
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
