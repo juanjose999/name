@@ -1,5 +1,5 @@
 # Etapa 1: Construcción
-FROM maven:3.8.6-openjdk-17 AS build
+FROM amazoncorretto:21-alpine-jdk
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -11,7 +11,7 @@ COPY . .
 RUN mvn clean install -DskipTests
 
 # Etapa 2: Ejecución
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:21-alpine-jdk
 
 # Establece el directorio de trabajo para la ejecución
 WORKDIR /app
