@@ -4,8 +4,9 @@ FROM maven:3.8.6-openjdk-17 AS build
 # Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos del proyecto al contenedor
-COPY . .
+# Copia el archivo pom.xml y el directorio src para aprovechar el caché de Docker
+COPY pom.xml .
+COPY src ./src
 
 # Construye la aplicación (sin ejecutar los tests para mayor rapidez)
 RUN mvn clean install -DskipTests
